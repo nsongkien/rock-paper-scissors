@@ -6,6 +6,7 @@ var comPoints=0;
 var p='';
 var c='';
 var kq;
+var winner='';
 let playerPointsBox= document.querySelector('.player')
 let comPointsBox = document.querySelector('.computer');
    
@@ -18,7 +19,7 @@ function getComputerChoice () {
       case 2: return 'scissors';
    }
 }
-//old way of getting player's choice manually
+//old way of getting player's choice through 'prompt'
 /*
 function getPlayerChoice () {
    let success = false;
@@ -101,21 +102,36 @@ function game() {
 }*/
 
 
-
+let result = document.querySelector('.win');
 const buttons = document.querySelectorAll('button');
 buttons.forEach((button) => {
    button.addEventListener('click', (e) => {
       playRound(button.id,getComputerChoice());
       playerPointsBox.textContent=playerPoints;
       comPointsBox.textContent=comPoints;
+      
+      if (comPoints==5) {
+         winner='The Computer';
+      } 
+         else if (playerPoints==5) {
+            winner='You';
+         }
+
+      result.style.visibility='hidden';
+      result.textContent=`${winner}'ve won`;
+      if (winner) {
+         buttons.forEach((button)=>{
+            button.style.visibility='hidden';
+         })
+         result.style.visibility='visible';
+      }
       console.log(p);
       console.log(c);
       console.log(kq);
       console.log(playerPoints);
-   console.log(comPoints);
+      console.log(comPoints);
    })
 })
-
 
 
 }
